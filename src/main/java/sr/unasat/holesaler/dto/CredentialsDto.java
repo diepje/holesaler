@@ -1,6 +1,8 @@
 package sr.unasat.holesaler.dto;
 
-public class CredentialsDto {
+import sr.unasat.holesaler.designPatterns.builder.CredentialsDtoPlan;
+
+public class CredentialsDto implements CredentialsDtoPlan {
 
     String username;
 

@@ -59,10 +59,10 @@ public class CompanyController {
         }
     }
 
-    @Path("/remove/{id}")
+    @Path("/remove")
     @DELETE
-    public void deleteCompanyById(@PathParam("id") Long id) {
-        companyService.removeCompany(id);
+    public void deleteCompanyById(CompanyDto companyDto) {
+        companyService.removeCompany(companyDto.getId());
     }
 
     @Path("/new_registrations")
