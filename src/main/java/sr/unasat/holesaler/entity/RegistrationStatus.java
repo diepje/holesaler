@@ -20,7 +20,7 @@ public class RegistrationStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToOne()
+    @OneToOne
     @JsonBackReference(value = "company-registration")
     @JoinColumn(name = "company_id")
     private Company company;

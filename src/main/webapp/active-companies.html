@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Holesaler - Home</title>
+    <title>Holesaler - Active Companies</title>
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
@@ -39,14 +39,45 @@
             color: white;
         }
     </style>
+    <!--<style>-->
+    <!--.collapsible {-->
+    <!--background-color: #777;-->
+    <!--color: white;-->
+    <!--cursor: pointer;-->
+    <!--padding: 18px;-->
+    <!--width: 100%;-->
+    <!--border: none;-->
+    <!--text-align: left;-->
+    <!--outline: none;-->
+    <!--font-size: 15px;-->
+    <!--}-->
+
+    <!--.active, .collapsible:hover {-->
+    <!--background-color: #555;-->
+    <!--}-->
+
+    <!--.content {-->
+    <!--padding: 0 18px;-->
+    <!--display: none;-->
+    <!--overflow: hidden;-->
+    <!--background-color: #f1f1f1;-->
+    <!--}-->
+    <!--</style>-->
 </head>
 <body background="images/wholesale.jpg" class="img-fluid" style="background-size: 100%">
 <div class="topnav">
-    <!--<a class="active" href="#home">Home</a>-->
-    <a class="active">Home</a>
+    <a href="employee-home.html">Home</a>
     <a href="audit.html">New Registrations</a>
-    <a href="active-companies.html">Active Companies</a>
-
+    <a class="active" href="active-companies.html">Active Companies</a>
 </div>
+<!--<button class="collapsible">Open Collapsible</button>-->
+<!--<div class="content">-->
+<!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+<!--</div>-->
+
+<div style="padding-left: 16px" id="newRegistrationsData"></div>
+
+<script src="audit-controller.js">
+</script>
 </body>
 </html>

@@ -25,7 +25,7 @@ public class Company implements Serializable {
     private String address;
 
     @JsonManagedReference
-    @OneToMany(targetEntity = PhoneNumber.class, mappedBy = "company", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = PhoneNumber.class, mappedBy = "company", orphanRemoval = true, cascade = CascadeType.ALL)
 //    @MapKey(name="id")
     private List<PhoneNumber> phoneNumber = new ArrayList<>();
 
