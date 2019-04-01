@@ -49,18 +49,18 @@
 </div>
 
 <div style="padding-left:16px">
-    <h2 class="page-information">Login</h2>
+    <h2>Login</h2>
 </div>
-<form method="post" id="login">
-    <label class="col-3 col-form-label"><b>Username:</b></label>
-    <div class="col-8">
-        <input type="text" class="form-control" id="username" required>
+<form method="post" id="login" style="padding-left: 16px">
+    <label>Username:</label>
+    <div>
+        <input type="text" id="username" required>
     </div>
-    <label class="col-3 col-form-label"><b>Pssword:</b></label>
-    <div class="col-8">
-        <input type="password" class="form-control" id="password" required>
-        <button class="btn btn-success" type="submit"
-        >Login
+    <label>Password:</label>
+    <div>
+        <input type="password" id="password" required>
+        <button type="submit">
+            Login
         </button>
     </div>
 </form>
@@ -82,7 +82,7 @@
                     }
                     sessionStorage.setItem("user", this.responseText)
                 } else {
-                    loginFailedAlert();
+                    alert("Invalid password.. .. or username, please try again!")
                 }
             }
         };

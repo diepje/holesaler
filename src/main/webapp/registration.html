@@ -53,43 +53,66 @@
 <div style="padding-left:16px">
     <h2>Registration</h2>
 </div>
-<div class="form-group row" style="padding-left: 16px">
-    <label class="col-3 col-form-label"><b>Company name:</b></label>
-    <div class="col-8">
-        <input class="form-control" id="company_name" placeholder="Company name" type="text">
+<form id="registration" style="padding-left: 16px" method="post">
+    <label>Company name:</label>
+    <div>
+        <input id="company_name" placeholder="Company name" type="text">
     </div>
-    <label class="col-3 col-form-label"><b>Address:</b></label>
-    <div class="col-8">
-        <input class="form-control" id="address" placeholder="Address" type="text">
+    <label>Address:</label>
+    <div>
+        <input id="address" placeholder="Address" type="text">
     </div>
-    <label class="col-3 col-form-label"><b>Email:</b></label>
-    <div class="col-8">
-        <input class="form-control" id="email" placeholder="E-mail" type="text">
+    <label>Email:</label>
+    <div>
+        <input id="email" placeholder="E-mail" type="text">
     </div>
-    <label class="col-3 col-form-label"><b>KKF registration number:</b></label>
-    <div class="col-8">
-        <input class="form-control" id="kkfRegistration" placeholder="Registration #" type="text">
+    <label>KKF registration number:</label>
+    <div>
+        <input id="kkfRegistration" placeholder="Registration #" type="text">
     </div>
-    <label class="col-3 col-form-label"><b>Phone number:</b></label>
-    <div class="col-8">
-        <input class="form-control" id="phone_number" placeholder="Phone #" type="text">
+    <label>Phone number:</label>
+    <div>
+        <input id="phone_number" placeholder="Phone #" type="text">
     </div>
-    <label class="col-3 col-form-label"><b>Retailer:</b></label>
-    <div class="col-8">
+    <label>Retailer:</label>
+    <div>
         <input type="checkbox" id="retail"><br>
     </div>
-    <label class="col-3 col-form-label"><b>Wholesaler:</b></label>
-    <div class="col-8">
+    <label>Wholesaler:</label>
+    <div>
         <input type="checkbox" id="wholesale"><br>
     </div>
-    <div class="col-3">
+    <div>
         <button class="btn btn-success" type="button" style="padding-left: 16px"
                 onclick="submitForm()">Submit
         </button>
     </div>
 
-</div>
-<script src="registration-controller.js"></script>
+</form>
+<!--<script src="registration-controller.js"></script>-->
+<script>
+    function submitForm() {
+        let company = {
+            "id": null,
+            "name": document.getElementById("company_name").value,
+            "address": document.getElementById("address").value,
+            "email": document.getElementById("email").value,
+            "kkfRegistration": document.getElementById("kkfRegistration").value,
+            "phoneNumber": [document.getElementById("phone_number").value],
+            "retail": document.getElementById("retail").value,
+            "wholesale": document.getElementById("wholesale").value,
+        }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "/holesaler/api/company/register", true);
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState > 3 && xmlhttp.status == 200) {
+
+            }
+        };
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify(company));
+    }
+</script>
 </body>
 
 </html>

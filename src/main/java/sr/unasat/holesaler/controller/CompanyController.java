@@ -48,7 +48,7 @@ public class CompanyController {
 
     @Path("/register")
     @POST
-    public Response registerCompany(Company company) {
+    public Response registerNewCompany(Company company) {
         System.out.println(company);
         return Response.ok().build();
 //            company.setName(company.getName().toLowerCase());
