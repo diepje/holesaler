@@ -43,7 +43,7 @@
 <body background="images/wholesale.jpg" class="img-fluid" style="background-size: 100%">
 
 <div class="topnav">
-    <a href="employee-home.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="registration.html">Registration</a>
     <a class="active" href="login.html">Login</a>
 </div>
@@ -76,13 +76,14 @@
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState > 3 && xhttp.status == 200) {
                 if (this.responseText) {
-                    let user = JSON.parse(this.responseText)
+                    let user = JSON.parse(this.responseText);
                     if (user.role) {
                         window.location = "employee-home.html";
                     }
-                    sessionStorage.setItem("user", this.responseText)
+                    sessionStorage.setItem("user", this.responseText);
                 } else {
-                    alert("Invalid password.. .. or username, please try again!")
+                    loginFailedAlert();
+                    alert("Invalid password.. .. or username, please try again!");
                 }
             }
         };

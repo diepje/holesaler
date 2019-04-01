@@ -76,11 +76,11 @@
     </div>
     <label>Retailer:</label>
     <div>
-        <input type="checkbox" id="retail"><br>
+        <input type="checkbox" id="retail" value="true"><br>
     </div>
     <label>Wholesaler:</label>
     <div>
-        <input type="checkbox" id="wholesale"><br>
+        <input type="checkbox" id="wholesale" value="true"><br>
     </div>
     <div>
         <button class="btn btn-success" type="button" style="padding-left: 16px"
@@ -91,26 +91,35 @@
 </form>
 <!--<script src="registration-controller.js"></script>-->
 <script>
+    let form = document.getElementById("registration");
+    form.addEventListener("submit", function (e) {
+        submitForm();
+        e.preventDefault();
+    });
+
     function submitForm() {
+        let phoneNumber = [
+            {"phoneNumber": document.getElementById("phone_number").value}
+        ];
         let company = {
             "id": null,
             "name": document.getElementById("company_name").value,
             "address": document.getElementById("address").value,
             "email": document.getElementById("email").value,
             "kkfRegistration": document.getElementById("kkfRegistration").value,
-            "phoneNumber": [document.getElementById("phone_number").value],
+            "phoneNumber": phoneNumber,
             "retail": document.getElementById("retail").value,
             "wholesale": document.getElementById("wholesale").value,
-        }
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST", "/holesaler/api/company/register", true);
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState > 3 && xmlhttp.status == 200) {
+        };
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/holesaler/api/company/register", true);
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState > 3 && xhttp.status == 200) {
 
             }
         };
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send(JSON.stringify(company));
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(company));
     }
 </script>
 </body>

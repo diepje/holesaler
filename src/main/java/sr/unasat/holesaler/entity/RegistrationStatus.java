@@ -1,6 +1,7 @@
 package sr.unasat.holesaler.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -11,11 +12,15 @@ public class RegistrationStatus {
     public RegistrationStatus() {
     }
 
+    public RegistrationStatus(String status) {
+        this.status = status;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToOne
+    @OneToOne()
     @JsonBackReference(value = "company-registration")
     @JoinColumn(name = "company_id")
     private Company company;

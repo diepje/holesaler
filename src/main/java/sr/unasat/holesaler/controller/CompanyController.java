@@ -6,6 +6,7 @@ import sr.unasat.holesaler.dao.CompanyDao;
 import sr.unasat.holesaler.dao.CompanyDaoImpl;
 import sr.unasat.holesaler.dto.CompanyDto;
 import sr.unasat.holesaler.entity.Company;
+import sr.unasat.holesaler.service.CompanyService;
 import sr.unasat.holesaler.service.StatusService;
 
 import javax.ws.rs.*;
@@ -22,6 +23,7 @@ public class CompanyController {
     private CompanyDao companyDao = CompanyDaoImpl.getInstance();
     private ModelMapper modelMapper = new ModelMapper();
     private StatusService statusService = StatusService.getInstance();
+    private CompanyService companyService = CompanyService.getInstance();
 
     @Path("/all")
     @GET
@@ -49,17 +51,13 @@ public class CompanyController {
     @Path("/register")
     @POST
     public Response registerNewCompany(Company company) {
-        System.out.println(company);
-        return Response.ok().build();
-//            company.setName(company.getName().toLowerCase());
-//            company.setUsername(company.getUsername().toLowerCase());
-//        try {
-//            companyDao.addCompany(company);
-//            return Response.ok().build();
-//        } catch (Exception e) {
-//            JPAConfiguration.getEntityManager().getTransaction().rollback();
-//            return Response.status(Response.Status.BAD_REQUEST).build();
-//        }
+        try {
+            companyService.registerNewCompany(company);
+            return Response.ok().build();
+        } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
     @Path("/remove/{id}")
