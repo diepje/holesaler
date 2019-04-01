@@ -20,7 +20,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class CompanyController {
 
-    private CompanyDao companyDao = CompanyDaoImpl.getInstance();
     private ModelMapper modelMapper = new ModelMapper();
     private StatusService statusService = StatusService.getInstance();
     private CompanyService companyService = CompanyService.getInstance();
@@ -28,9 +27,9 @@ public class CompanyController {
     @Path("/all")
     @GET
     public Response getAllCompanies() {
-        List<Company> companies = null;
+        List<Company> companies;
         try {
-            companies = companyDao.getAllCompanies();
+            companies = companyService.getAllCompanies();
         } catch (Exception e) {
             JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -45,7 +44,7 @@ public class CompanyController {
     @Path("/search/{name}")
     @GET
     public Company getCompanyByName(@PathParam("name") String name) {
-        return companyDao.getCompanyByName(name);
+        return companyService.getCompanyByName(name);
     }
 
     @Path("/register")
@@ -63,32 +62,77 @@ public class CompanyController {
     @Path("/remove/{id}")
     @DELETE
     public void deleteCompanyById(@PathParam("id") Long id) {
-        companyDao.removeCompany(id);
+        companyService.removeCompany(id);
     }
 
     @Path("/new_registrations")
     @GET
     public Response getAllNewRequests() {
         List<Company> newRegistrations;
+        List<CompanyDto> newRegistrationsDto = new ArrayList<>();
         try {
-            newRegistrations = companyDao.getAllNewCompanyRegistrations();
+            newRegistrations = companyService.getAllNewRequests();
         } catch (Exception e) {
             JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.ok(newRegistrations).build();
+        for (Company company : newRegistrations) {
+            newRegistrationsDto.add(modelMapper.map(company, CompanyDto.class));
+        }
+        return Response.ok(newRegistrationsDto).build();
     }
 
     @Path("/approve")
     @POST
     public Response approveCompany(CompanyDto companyDto) {
         try {
-            statusService.approveCompanyRegistration(companyDto.getId());
+            statusService.updateCompanyRegistrationStatus(companyDto.getId(), "APPROVED");
         } catch (Exception e) {
             JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();
+    }
+
+    @Path("/reject")
+    @POST
+    public Response rejectCompany(CompanyDto companyDto) {
+        try {
+            statusService.updateCompanyRegistrationStatus(companyDto.getId(), "REJECTED");
+        } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        return Response.ok().build();
+    }
+
+    @Path("/deactivate")
+    @POST
+    public Response deactivateCompany(CompanyDto companyDto) {
+        try {
+            statusService.updateCompanyRegistrationStatus(companyDto.getId(), "DEACTIVATED");
+        } catch (Exception e) {
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        return Response.ok().build();
+    }
+
+    @Path("/active")
+    @GET
+    public Response getAllActiveCompanies(){
+        List<CompanyDto> activeCompaniesDto = new ArrayList<>();
+        List<Company> activeCompanies;
+        try{
+            activeCompanies = companyService.getAllActiveCompanies();
+        } catch(Exception e){
+            JPAConfiguration.getEntityManager().getTransaction().rollback();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        for (Company company : activeCompanies) {
+            activeCompaniesDto.add(modelMapper.map(company, CompanyDto.class));
+        }
+        return Response.ok(activeCompaniesDto).build();
     }
 
 }

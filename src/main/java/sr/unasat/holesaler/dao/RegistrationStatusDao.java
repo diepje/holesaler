@@ -6,5 +6,5 @@ public interface RegistrationStatusDao {
 
     RegistrationStatus getCompanyRegistrationStatus(Long companyId);
 
-    void approveCompanyRegistration(RegistrationStatus registrationStatus);
+    void updateCompanyRegistrationStatus(RegistrationStatus registrationStatus);
 }

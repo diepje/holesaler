@@ -21,7 +21,7 @@ public class RegistrationStatus {
     Long id;
 
     @OneToOne
-    @JsonBackReference(value = "company-registration")
+    @JsonBackReference(value = "company")
     @JoinColumn(name = "company_id")
     private Company company;
 

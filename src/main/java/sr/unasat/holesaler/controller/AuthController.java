@@ -1,13 +1,12 @@
 package sr.unasat.holesaler.controller;
 
 import sr.unasat.holesaler.config.JPAConfiguration;
-import sr.unasat.holesaler.dao.CompanyDao;
-import sr.unasat.holesaler.dao.CompanyDaoImpl;
-import sr.unasat.holesaler.dao.EmployeeDao;
-import sr.unasat.holesaler.dao.EmployeeDaoImpl;
 import sr.unasat.holesaler.entity.Company;
 import sr.unasat.holesaler.entity.Credentials;
 import sr.unasat.holesaler.entity.Employee;
+import sr.unasat.holesaler.service.AuthService;
+import sr.unasat.holesaler.service.CompanyService;
+import sr.unasat.holesaler.service.EmployeeService;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -21,22 +20,23 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthController {
 
-    private CompanyDao companyDao = CompanyDaoImpl.getInstance();
-    private EmployeeDao employeeDao = EmployeeDaoImpl.getInstance();
+    private CompanyService companyService = CompanyService.getInstance();
+    private EmployeeService employeeService = EmployeeService.getInstance();
+    private AuthService authService = AuthService.getInstance();
 
     @Path("/login")
     @POST
     public Response login(Credentials credentials) {
-        Company company = companyDao.getCompanyByUsername(credentials.getUsername().toLowerCase());
-        Employee employee = employeeDao.getEmplopyeeByUsername(credentials.getUsername().toLowerCase());
+        Company company = companyService.getCompanyByUsername(credentials.getUsername().toLowerCase());
+        Employee employee = employeeService.getEmployeeByUsername(credentials.getUsername().toLowerCase());
         try {
             if (company != null) {
-                return company.getPassword().equals(credentials.getPassword()) ?
+                return authService.login(company, credentials) ?
                         Response.ok().entity(company).build() :
                         Response.status(Response.Status.UNAUTHORIZED).build();
             }
             if (employee != null) {
-                return employee.getPassword().equals(credentials.getPassword()) ?
+                return authService.login(employee, credentials) ?
                         Response.ok().entity(employee).build() :
                         Response.status(Response.Status.UNAUTHORIZED).build();
             }

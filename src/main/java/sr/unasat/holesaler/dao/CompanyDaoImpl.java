@@ -78,13 +78,13 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
-    public List<Company> getAllNewCompanyRegistrations() {
-        String status = "NEW";
+    public List<Company> getCompaniesByStatus(String status) {
         entityManager.getTransaction().begin();
         String jpql = "select c from Company c where c.registrationStatus.status = :status";
         TypedQuery<Company> query = entityManager.createQuery(jpql, Company.class);
         query.setParameter("status", status);
         List<Company> newCompanies = query.getResultList();
+        entityManager.getTransaction().commit();
         return newCompanies;
     }
 

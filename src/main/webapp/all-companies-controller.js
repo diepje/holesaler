@@ -39,10 +39,8 @@ function loadNewRegistrations() {
                     '<span class="w3-large"> Name: '+ newRegistrations[index].name +'</span><br>' +
                     retail +
                     wholesale +
-                    '<button type="submit" id= ' + newRegistrations[index].id + ' onclick="approveRegistration(this.id)" ' +
-                    'class="w3-bar-item w3-button w3-small w3-right">Approve</button>' +
-                    '<button type="submit" id=' + newRegistrations[index].id + ' onclick="rejectRegistration(this.id)" ' +
-                    'class="w3-bar-item w3-button w3-small w3-right">Reject</button>' +
+                    '<button type="submit" id= ' + newRegistrations[index].id + ' onclick="deactivateCompany(this.id)" ' +
+                    'class="w3-bar-item w3-button w3-small w3-right">Deactivate Account</button>' +
                     '</div>'
                 //
 
@@ -52,31 +50,16 @@ function loadNewRegistrations() {
             }
         }
     };
-    xhttp.open("GET", "/holesaler/api/company/new_registrations", true);
+    xhttp.open("GET", "/holesaler/api/company/active", true);
     xhttp.send();
 }
 
 
-function approveRegistration(id) {
-    if (confirm('Are you sure u want to approve this company ')) {
+function deactivateCompany(id) {
+    if (confirm('Are you sure u want to deactivate this account? ')) {
         let company = {"id": id}
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/holesaler/api/company/approve", true);
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState > 3 && xhttp.status == 200) {
-                loadNewRegistrations();
-            }
-        };
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(company));
-    }
-}
-
-function rejectRegistration(id) {
-    if (confirm('Are you sure u want to reject this company ')) {
-        let company = {"id": id}
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("DELETE", "/holesaler/api/company/approve", true);
+        xhttp.open("POST", "/holesaler/api/company/deactivate", true);
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState > 3 && xhttp.status == 200) {
                 loadNewRegistrations();

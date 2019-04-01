@@ -21,12 +21,12 @@ public class StatusService {
         return statusService;
     }
 
-    public boolean approveCompanyRegistration(Long companyId) {
+    public boolean updateCompanyRegistrationStatus(Long companyId, String status) {
         RegistrationStatus companyRegistrationStatus;
         try {
             companyRegistrationStatus = registrationStatusDao.getCompanyRegistrationStatus(companyId);
-            companyRegistrationStatus.setStatus("APPROVED");
-            registrationStatusDao.approveCompanyRegistration(companyRegistrationStatus);
+            companyRegistrationStatus.setStatus(status);
+            registrationStatusDao.updateCompanyRegistrationStatus(companyRegistrationStatus);
         } catch (Exception e) {
             JPAConfiguration.getEntityManager().getTransaction().rollback();
             return false;

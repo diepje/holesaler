@@ -41,7 +41,7 @@ public class RegistrationStatusDaoImpl implements RegistrationStatusDao {
     }
 
     @Override
-    public void approveCompanyRegistration(RegistrationStatus registrationStatus) {
+    public void updateCompanyRegistrationStatus(RegistrationStatus registrationStatus) {
         entityManager.getTransaction().begin();
         entityManager.merge(registrationStatus);
         entityManager.getTransaction().commit();

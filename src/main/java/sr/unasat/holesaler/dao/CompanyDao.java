@@ -16,7 +16,7 @@ public interface CompanyDao {
 
     Company getCompanyByUsername(String username);
 
-    List<Company> getAllNewCompanyRegistrations();
+    List<Company> getCompaniesByStatus(String status);
 
     void approveCompanyRegistration(Long id);
 }

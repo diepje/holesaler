@@ -47,8 +47,8 @@ public class Company implements Serializable {
     @Column
     private String password;
 
-    @JsonManagedReference(value = "company-registration")
-    @OneToOne(targetEntity = RegistrationStatus.class, mappedBy = "company", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @JsonManagedReference(value = "company")
+    @OneToOne(targetEntity = RegistrationStatus.class, mappedBy = "company", orphanRemoval = true, cascade = CascadeType.ALL)
     private RegistrationStatus registrationStatus;
 
     public Long getId() {
