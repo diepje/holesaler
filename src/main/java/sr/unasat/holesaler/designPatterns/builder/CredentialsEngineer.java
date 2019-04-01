@@ -15,8 +15,8 @@ public class CredentialsEngineer {
     }
 
     public void createCredentials() {
-        credentialsDtoBuilder.buildPassword("password");
-        credentialsDtoBuilder.buildUsername("username");
+        credentialsDtoBuilder.buildPassword();
+        credentialsDtoBuilder.buildUsername();
     }
 
 }

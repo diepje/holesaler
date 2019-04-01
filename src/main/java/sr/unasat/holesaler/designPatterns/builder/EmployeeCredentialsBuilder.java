@@ -1,21 +1,24 @@
 package sr.unasat.holesaler.designPatterns.builder;
 
 import sr.unasat.holesaler.dto.CredentialsDto;
-import sr.unasat.holesaler.entity.Employee;
 
 public class EmployeeCredentialsBuilder implements CredentialsDtoBuilder {
 
     private CredentialsDto credentialsDto;
+    private String username;
+    private String password;
 
-    public EmployeeCredentialsBuilder() {
+    public EmployeeCredentialsBuilder(String username, String password) {
         credentialsDto = new CredentialsDto();
+        this.username = username;
+        this.password = password;
     }
 
-    public void buildUsername(String username) {
+    public void buildUsername() {
         credentialsDto.setUsername(username);
     }
 
-    public void buildPassword(String password) {
+    public void buildPassword() {
         credentialsDto.setPassword(password);
     }
 
