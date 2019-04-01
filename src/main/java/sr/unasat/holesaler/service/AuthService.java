@@ -7,15 +7,14 @@ import sr.unasat.holesaler.entity.Employee;
 
 public class AuthService implements Service {
 
-    private static AuthService authService = new AuthService();
+//    private static AuthService authService = new AuthService();
 
-    @Override
-    public Service getInstance() {
-        return authService;
-    }
+//    @Override
+//    public Service getInstance() {
+//        return authService;
+//    }
 
-
-    //    private AuthService() {
+//        private AuthService() {
 //    }
 //
 //    public static AuthService getInstance(){
@@ -25,12 +24,14 @@ public class AuthService implements Service {
 //        return authService;
 //    }
 
-    public boolean login(Employee employee, Credentials credentials){
-        return employee.getUsername().toLowerCase().equals(credentials.getUsername().toLowerCase()) && employee.getPassword().equals(credentials.getPassword());
+
+    @Override
+    public boolean login(Credentials credentials, Credentials loginCredentials){
+        return credentials.getUsername().toLowerCase().equals(loginCredentials.getUsername().toLowerCase()) && credentials.getPassword().equals(loginCredentials.getPassword());
     }
 
-    public boolean login(Company company, Credentials credentials){
-        return company.getUsername().toLowerCase().equals(credentials.getUsername().toLowerCase()) && company.getPassword().equals(credentials.getPassword());
-    }
+//    public boolean login(Company company, Credentials credentials){
+//        return company.getUsername().toLowerCase().equals(credentials.getUsername().toLowerCase()) && company.getPassword().equals(credentials.getPassword());
+//    }
 
 }

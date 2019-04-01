@@ -4,13 +4,13 @@ import sr.unasat.holesaler.service.AuthService;
 
 public class ServiceFactory {
 
-    private Service authService = new AuthService();
-    private Service companyService;
-    private Service employeeService;
+    private static Service authService = new AuthService();
+    private static Service companyService;
+    private static Service employeeService;
 
-    public Service getInstance(String service) {
+    public static Service getInstance(String service) {
         switch (service) {
-            case "AuthService":
+            case "AUTHENTICATION":
                 return authService;
             case "CompanyService":
                 return companyService;

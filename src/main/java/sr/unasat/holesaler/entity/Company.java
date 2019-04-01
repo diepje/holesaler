@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "company")
-public class Company implements Serializable {
+public class Company extends Credentials implements Serializable {
 
     public Company() {
     }

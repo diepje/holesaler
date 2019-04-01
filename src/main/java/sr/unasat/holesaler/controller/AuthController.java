@@ -1,10 +1,11 @@
 package sr.unasat.holesaler.controller;
 
 import sr.unasat.holesaler.config.JPAConfiguration;
+import sr.unasat.holesaler.designPatterns.serviceFactory.Service;
+import sr.unasat.holesaler.designPatterns.serviceFactory.ServiceFactory;
 import sr.unasat.holesaler.entity.Company;
 import sr.unasat.holesaler.entity.Credentials;
 import sr.unasat.holesaler.entity.Employee;
-import sr.unasat.holesaler.service.AuthService;
 import sr.unasat.holesaler.service.CompanyService;
 import sr.unasat.holesaler.service.EmployeeService;
 
@@ -22,7 +23,7 @@ public class AuthController {
 
     private CompanyService companyService = CompanyService.getInstance();
     private EmployeeService employeeService = EmployeeService.getInstance();
-    private AuthService authService = AuthService.getInstance();
+    private Service authService = ServiceFactory.getInstance("AUTHENTICATION");
 
     @Path("/login")
     @POST
