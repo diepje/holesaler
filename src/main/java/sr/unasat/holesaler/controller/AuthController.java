@@ -3,6 +3,7 @@ package sr.unasat.holesaler.controller;
 import sr.unasat.holesaler.config.JPAConfiguration;
 import sr.unasat.holesaler.designPatterns.serviceFactory.Service;
 import sr.unasat.holesaler.designPatterns.serviceFactory.ServiceFactory;
+import sr.unasat.holesaler.designPatterns.state.Context;
 import sr.unasat.holesaler.entity.Company;
 import sr.unasat.holesaler.entity.Credentials;
 import sr.unasat.holesaler.entity.Employee;
@@ -24,22 +25,28 @@ public class AuthController {
     private CompanyService companyService = CompanyService.getInstance();
     private EmployeeService employeeService = EmployeeService.getInstance();
     private Service authService = ServiceFactory.getInstance("AUTHENTICATION");
+    private Context context = Context.getInstance();
 
     @Path("/login")
     @POST
     public Response login(Credentials credentials) {
         Company company = companyService.getCompanyByUsername(credentials.getUsername().toLowerCase());
         Employee employee = employeeService.getEmployeeByUsername(credentials.getUsername().toLowerCase());
+        Response response;
         try {
             if (company != null) {
-                return authService.login(company, credentials) ?
+                response = authService.login(company, credentials) ?
                         Response.ok().entity(company).build() :
                         Response.status(Response.Status.UNAUTHORIZED).build();
+
+                return response;
             }
             if (employee != null) {
-                return authService.login(employee, credentials) ?
+                response = authService.login(employee, credentials) ?
                         Response.ok().entity(employee).build() :
                         Response.status(Response.Status.UNAUTHORIZED).build();
+                context.setState(employee.getRole());
+                return response;
             }
         } catch (Exception e) {
             JPAConfiguration.getEntityManager().getTransaction().rollback();

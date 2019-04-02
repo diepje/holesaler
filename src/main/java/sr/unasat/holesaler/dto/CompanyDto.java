@@ -1,6 +1,7 @@
 package sr.unasat.holesaler.dto;
 
 import sr.unasat.holesaler.entity.PhoneNumber;
+import sr.unasat.holesaler.entity.RegistrationStatus;
 
 import java.util.List;
 
@@ -22,14 +23,14 @@ public class CompanyDto {
 
     private int wholesale;
 
-    private String strategy;
+    private RegistrationStatus registrationStatus;
 
-    public String getStrategy() {
-        return strategy;
+    public RegistrationStatus getRegistrationStatus() {
+        return registrationStatus;
     }
 
-    public void setStrategy(String strategy) {
-        this.strategy = strategy;
+    public void setRegistrationStatus(RegistrationStatus registrationStatus) {
+        this.registrationStatus = registrationStatus;
     }
 
     public Long getId() {

@@ -19,34 +19,38 @@ function loadRegistrations() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            let newRegistrations = JSON.parse(this.responseText);
-            let newRegistrationsList = '';
+            let allCompanies = JSON.parse(this.responseText);
+            let allCompaniesList = '';
             '<div class="w3 w3-card-4" style="padding-bottom: 5px">';
 
-            newRegistrations.reverse();
+            allCompanies.reverse();
 
-            for (let index = 0; index < newRegistrations.length; index++) {
+            for (let index = 0; index < allCompanies.length; index++) {
                 let retail = '';
                 let wholesale = '';
-                if (newRegistrations[index].retail) {
+                let status = '';
+                if (allCompanies[index].retail) {
                     retail = ' <span class="w3-large">Retailer</span><br> '
                 }
-                if (newRegistrations[index].wholesale) {
+                if (allCompanies[index].wholesale) {
                     wholesale = ' <span class="w3-large">Wholesaler</span><br> '
                 }
-                newRegistrationsList +=
+                if (allCompanies[index].registrationStatus.status){
+                    status = '(' + allCompanies[index].registrationStatus.status + ')';
+                }
+                allCompaniesList +=
                     '<div class="w3-bar-item">' +
-                    '<span class="w3-large"> Name: '+ newRegistrations[index].name +'</span><br>' +
+                    '<span class="w3-large"> Name: '+ allCompanies[index].name +'</span><br>' +
                     retail +
                     wholesale +
-                    '<button type="submit" id= ' + newRegistrations[index].id + ' onclick="deleteCompany(this.id)" ' +
+                    '<button type="submit" id= ' + allCompanies[index].id + ' onclick="deleteCompany(this.id)" ' +
                     'class="w3-bar-item w3-button w3-small w3-right">Delete Company</button>' +
                     '</div>'
                 //
 
                 ;
-                newRegistrationsList += "</div>";
-                document.getElementById("newRegistrationsData").innerHTML = newRegistrationsList;
+                allCompaniesList += "</div>";
+                document.getElementById("newRegistrationsData").innerHTML = allCompaniesList;
             }
         }
     };

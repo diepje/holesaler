@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import sr.unasat.holesaler.config.JPAConfiguration;
 import sr.unasat.holesaler.dao.CompanyDao;
 import sr.unasat.holesaler.dao.CompanyDaoImpl;
+import sr.unasat.holesaler.designPatterns.state.Context;
 import sr.unasat.holesaler.dto.CompanyDto;
 import sr.unasat.holesaler.entity.Company;
 import sr.unasat.holesaler.service.CompanyService;
@@ -23,6 +24,7 @@ public class CompanyController {
     private ModelMapper modelMapper = new ModelMapper();
     private StatusService statusService = StatusService.getInstance();
     private CompanyService companyService = CompanyService.getInstance();
+    private Context userState = Context.getInstance();
 
     @Path("/all")
     @GET
@@ -38,6 +40,7 @@ public class CompanyController {
         for (Company company : companies) {
             companyDtos.add(modelMapper.map(company, CompanyDto.class));
         }
+        companyDtos = userState.companyDtoListByUser(companyDtos);
         return Response.ok(companyDtos).build();
     }
 
