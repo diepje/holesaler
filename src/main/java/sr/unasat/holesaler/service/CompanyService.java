@@ -3,6 +3,7 @@ package sr.unasat.holesaler.service;
 import sr.unasat.holesaler.dao.CompanyDao;
 import sr.unasat.holesaler.dao.CompanyDaoImpl;
 import sr.unasat.holesaler.entity.Company;
+import sr.unasat.holesaler.entity.PhoneNumber;
 import sr.unasat.holesaler.entity.RegistrationStatus;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public class CompanyService {
     public void registerNewCompany(Company company) {
         company.setRegistrationStatus(new RegistrationStatus("NEW"));
         company.getRegistrationStatus().setCompany(company);
+        for(PhoneNumber phoneNumber : company.getPhoneNumber()){
+            phoneNumber.setCompany(company);
+        }
         companyDao.addCompany(company);
     }
 

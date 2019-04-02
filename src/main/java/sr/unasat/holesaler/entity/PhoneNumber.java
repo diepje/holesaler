@@ -25,7 +25,7 @@ public class PhoneNumber {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id")
     private Company company;
 
     public Long getId() {
