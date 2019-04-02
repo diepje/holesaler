@@ -86,7 +86,7 @@ public class CompanyController {
     }
 
     @Path("/approve")
-    @POST
+    @PUT
     public Response approveCompany(CompanyDto companyDto) {
         try {
             statusService.updateCompanyRegistrationStatus(companyDto.getId(), "APPROVED");
@@ -98,7 +98,7 @@ public class CompanyController {
     }
 
     @Path("/reject")
-    @POST
+    @PUT
     public Response rejectCompany(CompanyDto companyDto) {
         try {
             statusService.updateCompanyRegistrationStatus(companyDto.getId(), "REJECTED");
@@ -110,7 +110,7 @@ public class CompanyController {
     }
 
     @Path("/deactivate")
-    @POST
+    @PUT
     public Response deactivateCompany(CompanyDto companyDto) {
         try {
             statusService.updateCompanyRegistrationStatus(companyDto.getId(), "DEACTIVATED");

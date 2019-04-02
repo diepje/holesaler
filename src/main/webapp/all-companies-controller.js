@@ -1,4 +1,4 @@
-loadRegistrations();
+loadCompanies();
 
 let coll = document.getElementsByClassName("collapsible");
 let i;
@@ -15,7 +15,7 @@ for (i = 0; i < coll.length; i++) {
     });
 }
 
-function loadRegistrations() {
+function loadCompanies() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -35,12 +35,12 @@ function loadRegistrations() {
                 if (allCompanies[index].wholesale) {
                     wholesale = ' <span class="w3-large">Wholesaler</span><br> '
                 }
-                if (allCompanies[index].registrationStatus.status){
+                if (allCompanies[index].registrationStatus){
                     status = '(' + allCompanies[index].registrationStatus.status + ')';
                 }
                 allCompaniesList +=
                     '<div class="w3-bar-item">' +
-                    '<span class="w3-large"> Name: '+ allCompanies[index].name +'</span><br>' +
+                    '<span class="w3-large"> Name: '+ allCompanies[index].name + status +'</span><br>' +
                     retail +
                     wholesale +
                     '<button type="submit" id= ' + allCompanies[index].id + ' onclick="deleteCompany(this.id)" ' +
@@ -66,7 +66,7 @@ function deleteCompany(id) {
         xhttp.open("DELETE", "/holesaler/api/company/remove", true);
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState > 3 && xhttp.status == 200) {
-                loadRegistrations();
+                loadCompanies();
             }
         };
         xhttp.setRequestHeader("Content-Type", "application/json");

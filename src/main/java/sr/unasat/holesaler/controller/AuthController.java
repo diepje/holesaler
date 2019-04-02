@@ -52,6 +52,6 @@ public class AuthController {
             JPAConfiguration.getEntityManager().getTransaction().rollback();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.ok().build();
+        return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 }

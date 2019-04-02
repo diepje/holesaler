@@ -61,7 +61,7 @@ function approveRegistration(id) {
     if (confirm('Are you sure u want to approve this company ')) {
         let company = {"id": id}
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/holesaler/api/company/approve", true);
+        xhttp.open("PUT", "/holesaler/api/company/approve", true);
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState > 3 && xhttp.status == 200) {
                 loadNewRegistrations();
@@ -76,7 +76,7 @@ function rejectRegistration(id) {
     if (confirm('Are you sure u want to reject this company ')) {
         let company = {"id": id}
         var xhttp = new XMLHttpRequest();
-        xhttp.open("DELETE", "/holesaler/api/company/approve", true);
+        xhttp.open("PUT", "/holesaler/api/company/reject", true);
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState > 3 && xhttp.status == 200) {
                 loadNewRegistrations();

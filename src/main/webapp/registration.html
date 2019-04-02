@@ -56,23 +56,23 @@
 <form id="registration" style="padding-left: 16px" method="post">
     <label>Company name:</label>
     <div>
-        <input id="company_name" placeholder="Company name" type="text">
+        <input id="company_name" placeholder="Company name" type="text" required>
     </div>
     <label>Address:</label>
     <div>
-        <input id="address" placeholder="Address" type="text">
+        <input id="address" placeholder="Address" type="text" required>
     </div>
     <label>Email:</label>
     <div>
-        <input id="email" placeholder="E-mail" type="text">
+        <input id="email" placeholder="E-mail" type="text" required>
     </div>
     <label>KKF registration number:</label>
     <div>
-        <input id="kkfRegistration" placeholder="Registration #" type="text">
+        <input id="kkfRegistration" placeholder="Registration #" type="text" required>
     </div>
     <label>Phone number:</label>
     <div>
-        <input id="phone_number" placeholder="Phone #" type="text">
+        <input id="phone_number" placeholder="Phone #" type="text" required>
     </div>
     <label>Retailer:</label>
     <div>
@@ -83,8 +83,7 @@
         <input type="checkbox" id="wholesale" value="true"><br>
     </div>
     <div>
-        <button class="btn btn-success" type="button" style="padding-left: 16px"
-                onclick="submitForm()">Submit
+        <button class="btn btn-success" type="submit" style="padding-left: 16px">Submit
         </button>
     </div>
 
@@ -93,7 +92,33 @@
 <script>
     let form = document.getElementById("registration");
     form.addEventListener("submit", function (e) {
-        submitForm();
+        // submitForm();
+        let phoneNumber = [
+            {"phoneNumber": document.getElementById("phone_number").value}
+        ];
+        let companyName = document.getElementById("company_name").value;
+        let address = document.getElementById("address");
+        let email = document.getElementById("email").value;
+        let kkfRegistration = document.getElementById("kkfRegistration").value;
+        let company = {
+            "id": null,
+            "name": document.getElementById("company_name").value,
+            "address": document.getElementById("address"),
+            "email": document.getElementById("email").value,
+            "kkfRegistration": document.getElementById("kkfRegistration").value,
+            "phoneNumber": phoneNumber,
+            "retail": document.getElementById("retail").value,
+            "wholesale": document.getElementById("wholesale").value,
+        };
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/holesaler/api/company/register", true);
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState > 3 && xhttp.status == 200) {
+
+            }
+        };
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(company));
         e.preventDefault();
     });
 
@@ -101,10 +126,14 @@
         let phoneNumber = [
             {"phoneNumber": document.getElementById("phone_number").value}
         ];
+        let companyName = document.getElementById("company_name").value;
+        let address = document.getElementById("address");
+        let email = document.getElementById("email").value;
+        let kkfRegistration = document.getElementById("kkfRegistration").value;
         let company = {
             "id": null,
             "name": document.getElementById("company_name").value,
-            "address": document.getElementById("address").value,
+            "address": document.getElementById("address"),
             "email": document.getElementById("email").value,
             "kkfRegistration": document.getElementById("kkfRegistration").value,
             "phoneNumber": phoneNumber,
