@@ -56,23 +56,23 @@
 <form id="registration" style="padding-left: 16px" method="post">
     <label>Company name:</label>
     <div>
-        <input id="company_name" placeholder="Company name" type="text" required>
+        <input id="company_name" placeholder="Company name" type="text">
     </div>
     <label>Address:</label>
     <div>
-        <input id="address" placeholder="Address" type="text" required>
+        <input id="address" placeholder="Address" type="text">
     </div>
     <label>Email:</label>
     <div>
-        <input id="email" placeholder="E-mail" type="text" required>
+        <input id="email" placeholder="E-mail" type="text">
     </div>
     <label>KKF registration number:</label>
     <div>
-        <input id="kkfRegistration" placeholder="Registration #" type="text" required>
+        <input id="kkfRegistration" placeholder="Registration #" type="text">
     </div>
     <label>Phone number:</label>
     <div>
-        <input id="phone_number" placeholder="Phone #" type="text" required>
+        <input id="phone_number" placeholder="Phone #" type="text">
     </div>
     <label>Retailer:</label>
     <div>
@@ -97,28 +97,33 @@
             {"phoneNumber": document.getElementById("phone_number").value}
         ];
         let companyName = document.getElementById("company_name").value;
-        let address = document.getElementById("address");
+        let address = document.getElementById("address").value;
         let email = document.getElementById("email").value;
         let kkfRegistration = document.getElementById("kkfRegistration").value;
-        let company = {
-            "id": null,
-            "name": document.getElementById("company_name").value,
-            "address": document.getElementById("address"),
-            "email": document.getElementById("email").value,
-            "kkfRegistration": document.getElementById("kkfRegistration").value,
-            "phoneNumber": phoneNumber,
-            "retail": document.getElementById("retail").value,
-            "wholesale": document.getElementById("wholesale").value,
-        };
-        let xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/holesaler/api/company/register", true);
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState > 3 && xhttp.status == 200) {
-
-            }
-        };
-        xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(company));
+        if (address && companyName && email && kkfRegistration) {
+            let company = {
+                "id": null,
+                "name": document.getElementById("company_name").value,
+                "address": document.getElementById("address").value,
+                "email": document.getElementById("email").value,
+                "kkfRegistration": document.getElementById("kkfRegistration").value,
+                "phoneNumber": phoneNumber,
+                "retail": document.getElementById("retail").value,
+                "wholesale": document.getElementById("wholesale").value,
+            };
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/holesaler/api/company/register", true);
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState > 3 && xhttp.status == 200) {
+                    alert("Registration successful!")
+                    window.location("index.html")
+                }
+            };
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(company));
+        } else {
+            alert("Please fill in all forms!")
+        }
         e.preventDefault();
     });
 

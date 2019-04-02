@@ -19,9 +19,9 @@ public class CompanyDto {
 
     private String kkfRegistration;
 
-    private int retail;
+    private boolean retail;
 
-    private int wholesale;
+    private boolean wholesale;
 
     private RegistrationStatus registrationStatus;
 
@@ -81,19 +81,19 @@ public class CompanyDto {
         this.kkfRegistration = kkfRegistration;
     }
 
-    public int getRetail() {
+    public boolean isRetail() {
         return retail;
     }
 
-    public void setRetail(int retail) {
+    public void setRetail(boolean retail) {
         this.retail = retail;
     }
 
-    public int getWholesale() {
+    public boolean isWholesale() {
         return wholesale;
     }
 
-    public void setWholesale(int wholesale) {
+    public void setWholesale(boolean wholesale) {
         this.wholesale = wholesale;
     }
 }

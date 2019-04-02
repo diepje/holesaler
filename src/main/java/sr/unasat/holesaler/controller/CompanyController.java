@@ -52,7 +52,8 @@ public class CompanyController {
 
     @Path("/register")
     @POST
-    public Response registerNewCompany(Company company) {
+    public Response registerNewCompany(CompanyDto companyDto) {
+        Company company = modelMapper.map(companyDto, Company.class);
         try {
             companyService.registerNewCompany(company);
             return Response.ok().build();
